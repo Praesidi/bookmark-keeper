@@ -1,0 +1,233 @@
+:root {
+  --background-color: #ffd4a3;
+  --light-color: #ffecd6;
+  --dark-color: #0d2b45;
+  --dark-color-alt: #203c56; 
+  --primary-color: #d08159;
+  --primary-color-alt: #ffaa5e;
+  --secondary-color: #544e68;
+  --secondary-color-alt: #8d697a;
+  --border-radius: 10px;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Rubik', sans-serif;
+  min-height: 95vh;
+  margin: 0;
+  padding-top: 10px;
+  background-color: var(--background-color);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='199' viewBox='0 0 100 199'%3E%3Cg fill='%23ffaa5e' fill-opacity='0.9'%3E%3Cpath d='M0 199V0h1v1.99L100 199h-1.12L1 4.22V199H0zM100 2h-.12l-1-2H100v2z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+}
+
+h1 {
+  color: var(--light-color);
+  background: var(--dark-color-alt);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  margin: 0 auto 20px;
+  width: 320px;
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+h1:hover { 
+  background: var(--dark-color);
+  transition: all 0.3s;
+  box-shadow: 0px 5px 10px 3px #909090;
+}
+
+.add-bookmark-icon {
+  margin-left: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.item {
+  background: var(--primary-color);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  padding-bottom: 20px;
+  margin: 10px;
+  filter: opacity(85%);
+  filter: contrast(1.2);
+}
+
+.item:hover {
+  filter: opacity(1);
+  filter: contrast(1.4);
+  transition: 0.2s;
+  box-shadow: 0px 0px 10px 3px var(--primary-color-alt);
+}
+
+.item a {
+  text-decoration: none;
+  color: var(--light-color);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+a:link,
+a:visited {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+a:hover, 
+a:active {
+  text-decoration: underline;
+}
+
+.item-close-icon {
+  color: var(--dark-color-alt);
+  float: right;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.item-close-icon:hover {
+  color: crimson;
+  transition: 0.2s;
+}
+
+.name { /*adding space for close icon in an item element*/
+  margin-top: 15px;
+  margin-right: 25px;
+}
+
+.name img {
+  height: 20px;
+  width: 20px;
+  vertical-align: sub;
+  margin-right: 10px;
+}
+
+/*Modal*/
+.modal-container {
+  background: rgba(141, 105, 122, 0.7);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.show-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: var(--light-color);
+  color: var(--dark-color-alt);
+  font-weight: 500;
+  max-width: 95%;
+  width: 500px;
+  border-radius: var(--border-radius);
+  overflow: hidden; /*fixes problem when setting bg deletes border-radius*/
+  animation: modalOpen 1.5s;
+}
+
+@keyframes modalOpen {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-close-icon {
+  float: right ;
+  font-size: 30px;
+  color: var(--dark-color-alt);
+  cursor: pointer;
+  position: relative;
+  top: 10px;
+  right: 15px;
+  z-index: 3;
+}
+
+.modal-close-icon:hover {
+  color: crimson;
+  transition: 0.2s;
+}
+
+.modal-header {
+  background: var(--background-color);
+  color: var(--dark-color-alt);
+  padding: 15px 20px;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.modal-content {
+  padding: 20px;
+  background: whitesmoke;
+}
+
+/*Form*/
+
+.form-group {
+  height: 55px;
+}
+
+.form-input {
+  width: 97%;
+  padding: 5px;
+  border: 2px solid var(--background-color);
+  border-radius: var(--border-radius);
+  display: block;
+  outline: none;
+}
+
+.form-label {
+  color: var(--dark-color-alt);
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  color: var(--dark-color-alt);
+  background: var(--background-color);
+  height: 30px;
+  width: 100px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+button:hover {
+  box-shadow: 0px 0px 2px 2px var(--primary-color-alt);
+  filter: brightness(110%);
+  transition: 0.3s;
+}
+
+button:active {
+  filter: brightness(90%);
+}
+
+button:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 600px){
+  .container {
+    flex-direction: column;
+  }
+}
