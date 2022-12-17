@@ -6,7 +6,7 @@ const websiteNameEl = document.getElementById('website-name');
 const websiteUrlEl = document.getElementById('website-url');
 const bookmarkContainer = document.getElementById('bookmarks-container');
 
-let bookmarks = [];
+let bookmarks = {};
 
 function showModal(){
   modal.classList.add('show-modal');
@@ -35,20 +35,10 @@ function validateForm(nameValue, urlValue){
   return true;
 }
 
-function deleteBookmark(url){
-  bookmarks.forEach((bookmark, i) => {
-    if (bookmark.url === url){
-      bookmarks.splice(i, 1);
-    }
-  });
-  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-  fetchBookmarks();
-}
-
 function buildBookmarks(){
   bookmarkContainer.textContent = '';
-  bookmarks.forEach((bookmark) => {
-    const { name, url } = bookmark;
+  Object.keys(bookmarks).forEach((id) => {
+    const { name, url } = bookmarks[id];
     //Item
     const item = document.createElement('div');
     item.classList.add('item');
@@ -56,7 +46,7 @@ function buildBookmarks(){
     const closeIcon = document.createElement('i');
     closeIcon.classList.add('fa-solid', 'fa-xmark', 'item-close-icon');
     closeIcon.setAttribute('title', 'Delete Bookmark');
-    closeIcon.setAttribute('onclick', `deleteBookmark('${url}')`);
+    closeIcon.setAttribute('onclick', `deleteBookmark('${id}')`);
     //Info about bookmark
     const linkInfo = document.createElement('div');
     linkInfo.classList.add('name');
@@ -80,15 +70,22 @@ function fetchBookmarks(){
   if (localStorage.getItem('bookmarks')){
     bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
   } else {
-    bookmarks = [
-      {
-        name: 'My Shikimori',
-        url: 'https://shikimori.one/praesidi',
-      },
-    ];
+    const id = 'https://shikimori.one/praesidi';
+    bookmarks[id] = {
+      name: 'My Shikimori',
+      url: 'https://shikimori.one/praesidi',
+    };
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   }
   buildBookmarks();
+}
+
+function deleteBookmark(id){
+  if (bookmarks[id]){
+    delete bookmarks[id];
+  }
+  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  fetchBookmarks();
 }
 
 function storeBookmark(e){
@@ -105,7 +102,7 @@ function storeBookmark(e){
     name: nameValue,
     url: urlValue,
   };
-  bookmarks.push(bookmark);
+  bookmarks[urlValue] = bookmark;
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   fetchBookmarks();
   bookmarkForm.reset();
